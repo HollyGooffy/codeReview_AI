@@ -34,6 +34,6 @@ def main(filename, start):
     print("Достижимые вершины в порядке обхода BFS:", reachable_vertices)
 
 if __name__ == "__main__":
-    filename = 'FileName'  # Замените на имя вашего файла
-    start_vertex = 0  # Замените на номер стартовой вершины
+    filename = 'FileName'
+    start_vertex = int(input("Введите вершину: "))
     main(filename, start_vertex)

@@ -1,42 +1,35 @@
 from collections import deque
 
-
 def read_graph(filename):
     with open(filename, 'r') as file:
-        n = int(file.readline())  # Читаем количество вершин
+        n = int(file.readline())
         graph = []
         for _ in range(n):
-            # Читаем каждую строку матрицы смежности
             row = list(map(int, file.readline().split()))
             graph.append(row)
     return graph
 
 
 def bfs(graph, start):
-    """Реализация поиска в ширину (BFS)"""
     n = len(graph)
     visited = [False] * n  # Массив посещенных вершин
-    queue = deque()  # Очередь для BFS
-    result = []  # Результат обхода
+    queue = deque()
+    result = []
 
-    # Начинаем с начальной вершины
     queue.append(start)
     visited[start] = True
 
     while queue:
         current = queue.popleft()
-        result.append(current)  # Добавляем вершину в результат
+        result.append(current)
 
-        # Получаем всех соседей текущей вершины
         neighbors = []
         for neighbor in range(n):
-            if graph[current][neighbor] != 0:  # Если есть дуга
+            if graph[current][neighbor] != 0:
                 neighbors.append(neighbor)
 
-        # Сортируем соседей по возрастанию номеров
         neighbors.sort()
 
-        # Добавляем непосещенных соседей в очередь
         for neighbor in neighbors:
             if not visited[neighbor]:
                 visited[neighbor] = True
@@ -46,8 +39,7 @@ def bfs(graph, start):
 
 
 def main():
-    """Основная функция программы"""
-    filename = input("Введите имя файла с графом: ")
+    filename = 'FileName'
     try:
         graph = read_graph(filename)
         n = len(graph)

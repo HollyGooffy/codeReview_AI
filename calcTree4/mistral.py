@@ -67,8 +67,10 @@ def main(filename):
     expression = read_expression_from_file(filename)
     root = build_tree(expression)
     transformed_root = transform_tree(root)
-    print(print_tree(transformed_root))
+    return transformed_root
 
 if __name__ == "__main__":
-    filename = 'filename'  # Замените на имя вашего файла
-    main(filename)
+    filename = 'filename'
+    root_pointer = main(filename)
+    print(f"Указатель на корень нового дерева: {root_pointer}")
+    print(print_tree(root_pointer))

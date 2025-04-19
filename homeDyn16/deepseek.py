@@ -18,9 +18,7 @@ def count_numbers_with_4_zeros(N, K):
 
     # Сумма всех допустимых чисел без 4+ нулей подряд
     sum_valid = sum(dp[N])
-    # Общее количество чисел
     total = (K - 1) * (K ** (N - 1))
-    # Результат: общее количество минус допустимые
     return total - sum_valid
 
 

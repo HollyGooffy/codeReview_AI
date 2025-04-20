@@ -53,7 +53,7 @@ def bfs(graph, start):
 
 
 def main():
-    filename = 'FileName'
+    filename = "FileName"
     try:
         graph = read_graph(filename)
         n = len(graph)

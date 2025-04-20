@@ -13,7 +13,6 @@
  """
 class Node:
     def __init__(self, value):
-        """Инициализирует узел с заданным значением."""
         self.value = value
         self.left = None
         self.right = None
@@ -22,9 +21,9 @@ def build_rpn_tree(tokens):
     stack = []
 
     for token in tokens:
-        if token.isdigit():  # Если токен - число
+        if token.isdigit():
             stack.append(Node(int(token)))
-        else:  # Если токен - операция
+        else:
             if token == '+':
                 op = -1
             elif token == '-':
@@ -55,7 +54,7 @@ def evaluate(node):
     left_val = evaluate(node.left)
     right_val = evaluate(node.right)
 
-    if node.value == -1:  # Сложение
+    if node.value == -1:
         return left_val + right_val
     elif node.value == -2:
         return left_val - right_val
@@ -90,7 +89,7 @@ def print_tree(node, level=0):
 
 
 def main():
-    filename = 'filename'
+    filename = "filename"
     try:
         with open(filename, 'r') as file:
             expression = file.read().strip()

@@ -1,4 +1,4 @@
-"""За основу взята версия deepseek"""
+"""За основу взята версия deepseek и openAI"""
 """
  В текстовом файле с именем filename дано арифметическое выражение в
  обратной польской записи. Операндами в выражении являются целые числа из
@@ -17,26 +17,18 @@ class Node:
         self.left = None
         self.right = None
 
+op_codes = {'+': -1, '-': -2, '*': -3, '/': -4, '%': -5, '^': -6}
+
 def build_rpn_tree(tokens):
     stack = []
 
     for token in tokens:
         if token.isdigit():
             stack.append(Node(int(token)))
-        else:
-            if token == '+':
-                op = -1
-            elif token == '-':
-                op = -2
-            elif token == '*':
-                op = -3
-            elif token == '/':
-                op = -4
-            elif token == '%':
-                op = -5
-            elif token == '^':
-                op = -6
-            else:
+        else:  # Если токен - операция
+            try:
+                op = op_codes[token]
+            except KeyError:
                 raise ValueError(f"Неизвестный оператор: {token}")
 
             node = Node(op)
@@ -46,7 +38,6 @@ def build_rpn_tree(tokens):
 
     return stack[0]
 
-
 def evaluate(node):
     if node.value >= 0:
         return node.value
@@ -54,25 +45,24 @@ def evaluate(node):
     left_val = evaluate(node.left)
     right_val = evaluate(node.right)
 
-    if node.value == -1:
+    if node.value == op_codes['+']:
         return left_val + right_val
-    elif node.value == -2:
+    elif node.value == op_codes['-']:
         return left_val - right_val
-    elif node.value == -3:
+    elif node.value == op_codes['*']:
         return left_val * right_val
-    elif node.value == -4:
+    elif node.value == op_codes['/']:
         return left_val // right_val
-    elif node.value == -5:
+    elif node.value == op_codes['%']:
         return left_val % right_val
-    elif node.value == -6:
+    elif node.value == op_codes['^']:
         return left_val ** right_val
-
 
 def replace_div_mod(node):
     if node is None:
         return None
 
-    if node.value in (-4, -5):
+    if node.value == op_codes['/'] or node.value == op_codes['%']:
         value = evaluate(node)
         return Node(value)
 
@@ -80,16 +70,14 @@ def replace_div_mod(node):
     node.right = replace_div_mod(node.right)
     return node
 
-
 def print_tree(node, level=0):
     if node is not None:
         print_tree(node.right, level + 1)
         print(' ' * 4 * level + '->', node.value)
         print_tree(node.left, level + 1)
 
-
 def main():
-    filename = "filename"
+    filename = 'filename'
     try:
         with open(filename, 'r') as file:
             expression = file.read().strip()
@@ -109,7 +97,6 @@ def main():
         print("Файл не найден.")
     except Exception as e:
         print(f"Произошла ошибка: {e}")
-
 
 if __name__ == "__main__":
     main()

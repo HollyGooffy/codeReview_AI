@@ -9,7 +9,7 @@ def build_rpn_tree(tokens):
     stack = []
 
     for token in tokens:
-        if token.isdigit():  # Если токен - число
+        if token.isdigit():
             stack.append(Node(int(token)))
         else:  # Если токен - операция
             if token == '+':

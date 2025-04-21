@@ -12,7 +12,7 @@ def read_graph(filename):
 
 def bfs(graph, start):
     n = len(graph)
-    visited = [False] * n  # Массив посещенных вершин
+    visited = [False] * n
     queue = deque()
     result = []
 
